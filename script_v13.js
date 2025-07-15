@@ -256,4 +256,39 @@ document.addEventListener('DOMContentLoaded', () => {
             console.log('AudioContext resumed.');
         }
     }, { once: true });
+
+    // Contact form submission
+    const contactForm = document.getElementById('contact-form');
+    if (contactForm) {
+        contactForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            alert('お問い合わせありがとうございます。送信が完了しました。');
+            contactForm.reset();
+        });
+    }
+
+    // Newsletter form submission
+    const newsletterForm = document.getElementById('newsletter');
+    if (newsletterForm) {
+        newsletterForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            alert('ご登録ありがとうございます。最新情報をお届けします！');
+            newsletterForm.reset();
+        });
+    }
+
+    // Back to top button
+    const backToTop = document.getElementById('back-to-top');
+    if (backToTop) {
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 300) {
+                backToTop.style.display = 'block';
+            } else {
+                backToTop.style.display = 'none';
+            }
+        });
+        backToTop.addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+    }
 });
