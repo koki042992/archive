@@ -130,6 +130,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let primaryOscillator;
     let secondaryOscillator;
     let ambientNoise;
+    let ambientGainNode;
 
     const initAudio = () => {
         if (!audioContext) {
@@ -149,6 +150,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             // Conceptual ambient noise (white noise)
             ambientNoise = audioContext.createBufferSource();
+            ambientGainNode = audioContext.createGain();
             const bufferSize = audioContext.sampleRate * 2; // 2 seconds of noise
             const buffer = audioContext.createBuffer(1, bufferSize, audioContext.sampleRate);
             const output = buffer.getChannelData(0);
@@ -157,9 +159,10 @@ document.addEventListener('DOMContentLoaded', () => {
             }
             ambientNoise.buffer = buffer;
             ambientNoise.loop = true;
+            ambientNoise.connect(ambientGainNode);
+            ambientGainNode.gain.value = 0.01; // Very subtle default volume
+            ambientGainNode.connect(audioContext.destination);
             ambientNoise.start();
-            ambientNoise.connect(audioContext.destination);
-            ambientNoise.gain.setValueAtTime(0.01, audioContext.currentTime); // Very subtle
         }
     };
 
@@ -202,7 +205,10 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         primaryOscillator.frequency.setValueAtTime(primaryFreq, audioContext.currentTime);
         secondaryOscillator.frequency.setValueAtTime(secondaryFreq, audioContext.currentTime);
-        ambientNoise.gain.setValueAtTime(ambientGain, audioContext.currentTime);
+        ambientGainNode.gain.linearRampToValueAtTime(
+            ambientGain,
+            audioContext.currentTime + 0.5
+        );
         console.log(`Playing sound for era ${eraIndex} with primary ${primaryFreq}Hz, secondary ${secondaryFreq}Hz, ambient gain ${ambientGain}`);
     };
 
