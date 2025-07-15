@@ -390,8 +390,15 @@ footer {
 
 .timeline-events-wrapper {
     flex-grow: 1;
-    overflow-x: hidden; /* Hide scrollbar */
+    overflow-x: auto; /* Allow horizontal scroll */
     margin: 0 15px;
+    -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
+    -ms-overflow-style: none; /* Hide scrollbar on IE and Edge */
+    scrollbar-width: none; /* Hide scrollbar on Firefox */
+}
+
+.timeline-events-wrapper::-webkit-scrollbar {
+    display: none; /* Hide scrollbar on WebKit */
 }
 
 .timeline-events-inner {
