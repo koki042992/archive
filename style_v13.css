@@ -562,6 +562,37 @@ footer {
     }
 }
 
+@media (max-width: 480px) {
+    .container {
+        width: 95%;
+        padding: 20px 0;
+    }
+
+    header h1 {
+        font-size: 2em;
+    }
+
+    .tagline {
+        font-size: 1em;
+    }
+
+    .hero h2 {
+        font-size: 2em;
+    }
+
+    section h2 {
+        font-size: 1.8em;
+    }
+
+    .call-to-action p {
+        font-size: 1.2em;
+    }
+
+    .artifact-image {
+        max-width: 100%;
+    }
+}
+
 /* Flicker animation for memory fragments */
 @keyframes flicker {
     0%, 100% { opacity: 1; }
