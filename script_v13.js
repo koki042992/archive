@@ -257,16 +257,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }, { once: true });
 
-    // Contact form submission
-    const contactForm = document.getElementById('contact-form');
-    if (contactForm) {
-        contactForm.addEventListener('submit', (e) => {
-            e.preventDefault();
-            alert('お問い合わせありがとうございます。送信が完了しました。');
-            contactForm.reset();
-        });
-    }
-
     // Newsletter form submission
     const newsletterForm = document.getElementById('newsletter');
     if (newsletterForm) {
@@ -291,4 +281,17 @@ document.addEventListener('DOMContentLoaded', () => {
             window.scrollTo({ top: 0, behavior: 'smooth' });
         });
     }
+
+    // Play background music on first user interaction
+    const playBackgroundMusic = () => {
+        const backgroundMusic = new Audio('janegreynoshouzou.mp3');
+        backgroundMusic.loop = true;
+        backgroundMusic.play().catch(error => {
+            console.error("Background music playback failed:", error);
+        });
+        // Remove the event listener after the first click
+        document.body.removeEventListener('click', playBackgroundMusic);
+    };
+
+    document.body.addEventListener('click', playBackgroundMusic);
 });
